@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Employee Details</title>
+  <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
+  <h1>Employee Details</h1>
+
+  <form id="employeeForm">
+    <div class="input-container">
+      
+      <div class="column">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required><br><br>
+  
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" required><br><br>
+
+        <label for="gender">Gender:</label>
+        <select id="gender">
+      <option> </option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+  
+        <label for="age">Age:</label>
+        <input type="number" id="age" required><br><br>
+  
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone"><br><br>
+      </div>
+  
+    
+      <div class="column">
+        <label for="employeeID">Employee ID:</label>
+        <input type="text" id="employeeID" required><br><br>
+
+        <label for="address">Address</label>
+        <input type="text" id="address" required><br><br>
+  
+        <label for="joiningDate">Joining Date:</label>
+        <input type="date" id="joiningDate" required><br><br>
+  
+        <label for="designation">Designation:</label>
+        <input type="text" id="designation" required><br><br>
+  
+        <label for="salary">Salary:</label>
+        <input type="text" id="salary" required><br><br>
+      </div>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+
+
+  <script>
+    document.getElementById('employeeForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      const name = document.getElementById('name').value;
+      const dob = document.getElementById('dob').value;
+      const gender = document.getElementById('gender').value;
+      const age = document.getElementById('age').value;
+      const employeeID = document.getElementById('employeeID').value;
+      const address = document.getElementById('address').value;
+      const designation = document.getElementById('designation').value;
+      const joiningDate = document.getElementById('joiningDate').value;
+      const salary = document.getElementById('salary').value;
+      const phone = document.getElementById('phone').value;
+
+      const employeeData = {
+        name,
+        dob,
+        age,
+        gender,
+        employeeID,
+        address,
+        designation,
+        joiningDate,
+        salary,
+        phone
+      };
+
+      fetch('/add_employee', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(employeeData),
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.message);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    });
+    
+  </script>
+</body>
+</html>
+
